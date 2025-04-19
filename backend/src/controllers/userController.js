@@ -1,4 +1,5 @@
 import { User } from '../models/User.js';
+import apiResponse from '../utils/apiResponse.js';
 
 export const registeUser = async (req, res) => {
   try {
@@ -113,6 +114,10 @@ export const updateUserDetails = async (req, res) => {
       updatedFields,
       { new: true, runValidators: true }
     );
+
+    if (!updateUserDetails) {
+      apiResponse.error(req, 404, 'User not found!');
+    }
 
     return res.status(200).json({
       success: true,
