@@ -44,6 +44,22 @@ const userSchema = new mongoose.Schema(
       zipCode: String,
       country: String,
     },
+    about: {
+      type: String,
+      maxLength: [500, 'Maximum 500 characters are allowed!'],
+    },
+    avatar: String,
+    shelterInfo: {
+      shelterName: String,
+      licenseNumber: String,
+      website: Number,
+    },
+    favorites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Pet',
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -66,7 +82,6 @@ userSchema.methods.getSignedJwtToken = function () {
 };
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
-  //
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
