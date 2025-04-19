@@ -65,7 +65,7 @@ export const loginUser = async (req, res) => {
         .json({ success: false, message: 'Password doesnot match' });
     }
 
-    const token = user.getSignedJwtToken();
+    const token = await user.getSignedJwtToken();
 
     if (!token) {
       return res.status(500).json({ success: false, message: 'try again!' });
@@ -76,9 +76,10 @@ export const loginUser = async (req, res) => {
       .cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
       .json({ success: true, data: user, message: 'User login successfully!' });
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
-      .json({ success: false, message: error.message || 'failed to login!' });
+      .json({ success: false, message: 'failed to login!' });
   }
 };
 
@@ -98,13 +99,16 @@ export const logoutUser = async (req, res) => {
 
 export const updateUserDetails = async (req, res) => {
   try {
-    const { phone, address, about, avatar, shelterInfo, favorites } = req.body;
+    const { phone, address, about, shelterInfo, favorites } = req.body;
+
+    const avatarUrl = req.file?.path;
+    console.log(avatarUrl);
 
     const updatedFields = {
       phone,
       address,
       about,
-      avatar,
+      avatar: avatarUrl,
       shelterInfo,
       favorites,
     };
@@ -116,7 +120,9 @@ export const updateUserDetails = async (req, res) => {
     );
 
     if (!updateUserDetails) {
-      apiResponse.error(req, 404, 'User not found!');
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found!' });
     }
 
     return res.status(200).json({
@@ -125,6 +131,7 @@ export const updateUserDetails = async (req, res) => {
       message: 'Update user data successfully!',
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message || 'Failed to update user details!',

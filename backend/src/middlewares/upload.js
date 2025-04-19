@@ -1,6 +1,10 @@
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import apiResponse from '../utils/apiResponse.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -24,7 +28,7 @@ const upload = multer({
     if (file.mimetype.startsWith('image')) {
       cb(null, true);
     } else {
-      cb(new ErrorResponse('Please upload an image file', 400), false);
+      cb(apiResponse.error(req, 403, 'Invlid file!'), false);
     }
   },
 });

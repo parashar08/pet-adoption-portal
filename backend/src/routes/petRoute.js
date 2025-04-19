@@ -6,7 +6,7 @@ import {
   updatePetInfo,
   deletePet,
 } from '../controllers/petController.js';
-import { userAuth } from '../middlewares/userAuth.js';
+import userAuth from '../middlewares/userAuth.js';
 
 const router = express.Router();
 
