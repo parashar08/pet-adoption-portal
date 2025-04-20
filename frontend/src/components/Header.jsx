@@ -13,12 +13,21 @@ const Header = () => {
         <Link>Contact Us</Link>
       </nav>
       <div className="flex items-center justify-between gap-[2rem]">
-        <button className="bg-green-400 px-6 py-2 font-semibold rounded-md cursor-pointer">
-          Signup
-        </button>
-        <button className="bg-yellow-400 px-6 py-2 font-semibold rounded-md cursor-pointer">
-          Login
-        </button>
+        <Link to="/signup">
+          <button className="bg-green-400 px-6 py-2 font-semibold rounded-md cursor-pointer">
+            Signup
+          </button>
+        </Link>
+        <Link to="/login">
+          <button className="bg-yellow-400 px-6 py-2 font-semibold rounded-md cursor-pointer">
+            Login
+          </button>
+        </Link>
+        <Link to="/addPet">
+          <button className="bg-pink-400 px-6 py-2 font-semibold rounded-md cursor-pointer">
+            Add pet!
+          </button>
+        </Link>
       </div>
     </header>
   );
