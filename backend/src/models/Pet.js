@@ -52,7 +52,6 @@ const petSchema = new mongoose.Schema(
     },
     image: {
       type: [String],
-      required: [true, 'Please add atleast one image'],
     },
     location: {
       type: String,

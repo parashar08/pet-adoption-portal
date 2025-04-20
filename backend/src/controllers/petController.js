@@ -3,14 +3,18 @@ import apiResponse from '../utils/apiResponse.js';
 
 export const createPet = async (req, res) => {
   try {
-    const newPet = await Pet.create(req.body);
+    const petImages = req.files.map((fileObj) => fileObj.path);
+    console.log(petImages);
+    const newPet = await Pet.create({ ...req.body, image: petImages });
     if (!newPet) {
-      return apiResponse.error(req, 500, 'Failed to create pet. TRY AGAIN!');
+      res.status(500).json({ success: false, message: 'Pet not created' });
     }
 
-    return apiResponse.success(req, 201, newPet, 'Pet created successfully!');
+    return res
+      .status(201)
+      .json({ success: true, newPet, message: 'Pet created successfully!' });
   } catch (error) {
-    return apiResponse.error(req, 500, error.message || 'Failed to create!');
+    return res.status(500).json({ status: false, message: error });
   }
 };
 
@@ -86,13 +90,11 @@ export const deletePet = async (req, res) => {
         .json({ success: false, message: 'Pet not found!' });
     }
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        data: deletePet,
-        message: 'Pet deleted successfully!',
-      });
+    return res.status(200).json({
+      success: true,
+      data: deletePet,
+      message: 'Pet deleted successfully!',
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
