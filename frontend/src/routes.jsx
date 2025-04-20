@@ -23,7 +23,7 @@ const appRoutes = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '/addPet',
+        path: 'addPet',
         element: <AddPet />,
       },
     ],

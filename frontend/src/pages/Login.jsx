@@ -1,4 +1,5 @@
-import axios from 'axios';
+import { formToJSON } from 'axios';
+import userAuth from '../hooks/userAuth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,27 +14,19 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const { handleLogin } = userAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('LOGIN DATA!!', formData);
-    try {
-      const data = await axios.post(
-        'http://localhost:3000/api/user/login',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      console.log('LOGIN SUCCESSFULL!', data);
+    const data = await handleLogin(formData);
+    if (data) {
+      setFormData({
+        email: '',
+        password: '',
+      });
       navigate('/');
-    } catch (error) {
-      console.log('FAILED TO LOGIN!!', error);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-100 to-pink-200">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">

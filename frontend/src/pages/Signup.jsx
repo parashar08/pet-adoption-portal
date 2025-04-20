@@ -1,4 +1,4 @@
-import axios from 'axios';
+import userAuth from '../hooks/userAuth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,39 +10,27 @@ const Signup = () => {
     password: '',
   });
 
-  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const navigate = useNavigate();
+  const { handleSignup } = userAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Signup Data:', formData);
-    try {
-      const data = await axios.post(
-        'http://localhost:3000/api/user/register',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      console.log('API SIGNUP RESPONSE!', data);
-
+    const data = await handleSignup(formData);
+    if (data) {
       setFormData({
         name: '',
         email: '',
         role: '',
         password: '',
       });
+
       navigate('/login');
-    } catch (error) {
-      console.log('SIGNUP ERROR!!', error);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-200 rounded-lg">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
