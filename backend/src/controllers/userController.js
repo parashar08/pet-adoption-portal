@@ -74,7 +74,12 @@ export const loginUser = async (req, res) => {
     return res
       .status(200)
       .cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
-      .json({ success: true, data: user, message: 'User login successfully!' });
+      .json({
+        success: true,
+        data: user,
+        token,
+        message: 'User login successfully!',
+      });
   } catch (error) {
     console.log(error);
     return res

@@ -102,3 +102,26 @@ export const deletePet = async (req, res) => {
     });
   }
 };
+
+export const get4petDetails = async (req, res) => {
+  try {
+    const pet = await Pet.find().limit(4);
+
+    if (!pet) {
+      return res
+        .status(404)
+        .json({ success: false, error: 'Failed to find pet details!' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: pet,
+      message: 'Fetch pet data successfully!',
+    });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, error: error || 'Failed to fetch 4 pets data!' });
+  }
+};

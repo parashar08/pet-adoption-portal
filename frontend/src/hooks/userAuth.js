@@ -15,7 +15,7 @@ const userAuth = () => {
       });
 
       const data = await response.json();
-
+      localStorage.setItem('token', data.token);
       if (response.ok) {
         login(data);
         return data;

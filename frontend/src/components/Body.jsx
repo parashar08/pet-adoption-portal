@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PetCard from './PetCard';
 
 const Body = () => {
-  const [petData, setPetData] = useState(['1', '2', '3', '4']);
+  const [petData, setPetData] = useState([]);
 
   const pet = {
     name: 'dot',
@@ -12,8 +12,33 @@ const Body = () => {
     location: 'India',
   };
 
+  const fetchPetData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:3000/api/pet/demopets', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+      console.log(result);
+      setPetData(result.data);
+    } catch (error) {
+      console.log('ERROR WHIEL RETURNING DATA!!!', error);
+      return <div>ERROR!!! ${error.message}</div>;
+    }
+  };
+
+  useEffect(() => {
+    fetchPetData();
+  }, []);
+
   return (
     <main className="bg-gray-100 py-10">
+      {console.log(petData)}
       <div className="container mx-auto px-4">
         <section className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-800 mb-4">
@@ -34,8 +59,8 @@ const Body = () => {
             Featured Pets for Adoption
           </h3>
           <div className="flex flex-wrap">
-            {petData.map(() => (
-              <PetCard pet={pet} />
+            {petData.map((item, index) => (
+              <PetCard key={item?._id} pet={item} />
             ))}
           </div>
         </section>

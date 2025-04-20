@@ -6,7 +6,6 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = (userData) => {
-    console.log(userData.data);
     setUser(userData.data);
   };
 
