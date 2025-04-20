@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between h-[4rem] px-6">
+    <header className="flex items-center justify-between h-[4.5rem] px-6">
       <div>
         <h1 className="text-3xl font-bold text-blue-600">petPortal</h1>
       </div>

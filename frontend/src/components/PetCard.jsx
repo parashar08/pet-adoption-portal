@@ -1,6 +1,6 @@
 const PetCard = ({ pet }) => {
   return (
-    <div className="bg-white shadow-md rounded-2xl overflow-hidden transition-transform hover:scale-105 w-[20vw] m-auto mb-6">
+    <div className="bg-white shadow-md rounded-2xl overflow-hidden transition-transform hover:scale-105 w-[20vw] m-auto mb-6 h-[55vh]">
       <img
         src={pet.image || 'https://robohash.org/mail@ashallendesign.co.uk'}
         alt={pet.name}
