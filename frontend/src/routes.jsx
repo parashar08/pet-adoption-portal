@@ -4,6 +4,7 @@ import Body from './components/Body';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import AddPet from './pages/AddPet';
+import Pet from './pages/Pet';
 
 const appRoutes = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const appRoutes = createBrowserRouter([
       {
         path: 'addPet',
         element: <AddPet />,
+      },
+      {
+        path: 'pet/:petId',
+        element: <Pet />,
       },
     ],
   },
