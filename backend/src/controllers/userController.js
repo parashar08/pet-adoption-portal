@@ -1,5 +1,4 @@
 import { User } from '../models/User.js';
-import apiResponse from '../utils/apiResponse.js';
 
 export const registeUser = async (req, res) => {
   try {
@@ -73,7 +72,11 @@ export const loginUser = async (req, res) => {
 
     return res
       .status(200)
-      .cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
+      .cookie('token', token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      })
       .json({
         success: true,
         data: user,

@@ -4,7 +4,6 @@ import apiResponse from '../utils/apiResponse.js';
 export const createPet = async (req, res) => {
   try {
     const petImages = req.files.map((fileObj) => fileObj.path);
-    console.log(petImages);
     const newPet = await Pet.create({ ...req.body, image: petImages });
     if (!newPet) {
       res.status(500).json({ success: false, message: 'Pet not created' });
@@ -105,7 +104,7 @@ export const deletePet = async (req, res) => {
 
 export const get4petDetails = async (req, res) => {
   try {
-    const pet = await Pet.find().limit(4);
+    const pet = await Pet.find();
 
     if (!pet) {
       return res

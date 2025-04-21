@@ -7,6 +7,8 @@ const userAuth = async (req, res, next) => {
       req?.cookies?.token ||
       req?.header('Authorization')?.replace('Bearer ', '');
 
+    console.log(token);
+
     if (!token) {
       return res
         .status(401)

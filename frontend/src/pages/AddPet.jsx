@@ -76,9 +76,10 @@ const AddPet = () => {
       const response = await fetch('http://localhost:3000/api/pet/create', {
         method: 'POST',
         body: formData,
+        credentials: 'include',
       });
 
-      const data = await response.json();
+      const result = await response.json();
       if (response.ok) {
         setMessage('✅ Pet added successfully!');
         setPetData(initialPetData);
