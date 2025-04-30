@@ -22,16 +22,20 @@ export const getAllPets = async (req, res) => {
     const petsData = await Pet.find();
 
     if (!petsData) {
-      return apiResponse.error(req, 500, 'Failed to find all data. TRY AGAIN!');
+      return res
+        .status(500)
+        .json({ success: false, message: 'Failed to fetch pet data!' });
     }
 
-    return apiResponse(req, 200, petsData, 'Get all pets data successfully!');
+    return res.status(200).json({
+      success: true,
+      data: petsData,
+      message: 'Fetched all data successfully!',
+    });
   } catch (error) {
-    return apiResponse.error(
-      req,
-      500,
-      error?.message || 'Failed to get all pets!'
-    );
+    return res
+      .status(500)
+      .json({ success: false, message: 'Error while getting data! ' });
   }
 };
 
@@ -40,16 +44,18 @@ export const getPetById = async (req, res) => {
     const pet = await Pet.findById(req.params.petId);
 
     if (!pet) {
-      return apiResponse.error(req, 404, 'Pet with given id not found!');
+      return res.status(404).json({ success: false, message: 'No pet found!' });
     }
 
-    return apiResponse.success(req, 200, pet, 'Fetch pet data successfully!');
+    return res.status(200).json({
+      success: true,
+      data: pet,
+      message: 'Fetch pet data successfully!',
+    });
   } catch (error) {
-    return apiResponse.error(
-      req,
-      500,
-      error?.message || 'Failed to get pet info!'
-    );
+    return res
+      .status(500)
+      .json({ success: false, message: 'Internal server error!' });
   }
 };
 
@@ -104,7 +110,7 @@ export const deletePet = async (req, res) => {
 
 export const get4petDetails = async (req, res) => {
   try {
-    const pet = await Pet.find();
+    const pet = await Pet.find().limit(4);
 
     if (!pet) {
       return res
