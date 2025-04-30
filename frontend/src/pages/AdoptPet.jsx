@@ -11,7 +11,7 @@ const AdoptPet = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `http://localhost:3000/api/pet/getPet/${petId}`,
+        `https://pet-adoption-portel-backenpet-adopd.onrender.com/api/pet/getPet/${petId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

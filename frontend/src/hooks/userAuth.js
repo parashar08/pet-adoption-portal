@@ -6,7 +6,7 @@ const userAuth = () => {
 
   const handleLogin = async ({ email, password }) => {
     try {
-      const response = await fetch('http://localhost:3000/api/user/login', {
+      const response = await fetch('https://pet-adoption-portel-backenpet-adopd.onrender.com/api/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ const userAuth = () => {
 
   const handleSignup = async ({ name, email, role, password }) => {
     try {
-      const response = await fetch('http://localhost:3000/api/user/register', {
+      const response = await fetch('https://pet-adoption-portel-backenpet-adopd.onrender.com/api/user/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

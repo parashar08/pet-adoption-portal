@@ -9,11 +9,14 @@ const Home = () => {
   const fetchPetData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/api/pet/getAllPets', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        'https://pet-adoption-portel-backenpet-adopd.onrender.com/api/pet/getAllPets',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const result = await response.json();
       if (!result.success) {
         setErrorMessage(result.message);
