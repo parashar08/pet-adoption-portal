@@ -5,13 +5,6 @@ import PetCard from './PetCard';
 const Body = () => {
   const [petData, setPetData] = useState([]);
 
-  const pet = {
-    name: 'dot',
-    breed: 'Animal',
-    age: 4,
-    location: 'India',
-  };
-
   const fetchPetData = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -47,7 +40,7 @@ const Body = () => {
             We help you find the ideal companion for your home. Explore our
             collection of adoptable pets today!
           </p>
-          <Link>
+          <Link to="/home">
             <span className="bg-blue-600 text-white py-3 px-6 rounded-lg text-xl hover:bg-blue-700">
               Start Adopting
             </span>
@@ -59,7 +52,7 @@ const Body = () => {
           </h3>
           <div className="flex flex-wrap">
             {petData.map((item, index) => (
-              <PetCard key={item?._id} pet={item} />
+              <PetCard key={item?._id || index} pet={item} />
             ))}
           </div>
         </section>

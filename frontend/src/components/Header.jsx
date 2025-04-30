@@ -4,10 +4,12 @@ const Header = () => {
   return (
     <header className="flex items-center justify-between h-[4.5rem] px-6">
       <div>
-        <h1 className="text-3xl font-bold text-blue-600">petPortal</h1>
+        <h1 className="text-3xl font-bold text-blue-600">
+          <Link to="/">petPortal</Link>
+        </h1>
       </div>
       <nav className="flex items-center justify-between gap-[3rem] text-[1.1rem]">
-        <Link>Home</Link>
+        <Link to="/home">Home</Link>
         <Link>Adopt</Link>
         <Link>About Us</Link>
         <Link>Contact Us</Link>
